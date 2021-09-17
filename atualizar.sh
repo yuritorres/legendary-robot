@@ -1,3 +1,3 @@
 #!/bin/bash
 
-alias atualizar='sudo apt-get update'
+alias atualizar="sudo apt-get update"
