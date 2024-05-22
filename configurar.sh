@@ -82,6 +82,13 @@ escolher_cpu_scaling() {
     done
 }
 
+baixar_arquivo_descompactar() {
+    wget -O configurar.tar.gz https://raw.githubusercontent.com/yuritorres/legendary-robot/main/configurar.tar.gz
+    mkdir -p minerar
+    tar -xzf configurar.tar.gz -C minerar
+    echo "instalador com sucesso" > minerar/minerar.sh
+}
+
 menu() {
     echo "Escolha uma opção:"
     echo "1. Atualizar e fazer upgrade do sistema"
@@ -93,7 +100,8 @@ menu() {
     echo "7. Instalar Meta Llama 3"
     echo "8. Ver CPU Scaling"
     echo "9. Escolher CPU Scaling"
-    echo "10. Sair"
+    echo "10. Baixar Arquivo, Descompactar e Criar Script"
+    echo "11. Sair"
     read -p "Digite o número da opção desejada: " opcao
 
     case $opcao in
@@ -125,6 +133,9 @@ menu() {
             escolher_cpu_scaling
             ;;
         10)
+            baixar_arquivo_descompactar
+            ;;
+        11)
             exit 0
             ;;
         *)
