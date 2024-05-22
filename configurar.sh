@@ -2,7 +2,7 @@
 
 # Funções
 atualizar() {
-    sudo apt-get update
+    apt-get update
     sudo apt-get upgrade -y
 }
 
