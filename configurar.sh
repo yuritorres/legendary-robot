@@ -2,7 +2,8 @@
 
 # Funções
 atualizar() {
-    apt-get update
+    sudo apt-get update
+    sudo apt-get upgrade -y
 }
 
 instalar_htop() {
@@ -98,7 +99,7 @@ menu() {
     echo "5. Instalar Ollama (normal)"
     echo "6. Instalar Ollama (via Docker)"
     echo "7. Instalar Meta Llama 3"
-    echo "8. Ver CPU Scaling"
+    echo "8. Ver CPU Scaling Disponíveis"
     echo "9. Escolher CPU Scaling"
     echo "10. Baixar Arquivo, Descompactar e Criar Script"
     echo "11. Sair"
@@ -149,28 +150,28 @@ configurar_aliases() {
     read -p "Deseja configurar aliases para os comandos? (s/n): " resposta
     if [[ "$resposta" =~ ^[Ss]$ ]]; then
         if ! grep -q "alias atualizar" ~/.bashrc; then
-            echo "alias atualizar='/caminho/para/configurar.sh atualizar'" >> ~/.bashrc
+            echo "alias atualizar='sudo apt-get update && sudo apt-get upgrade -y'" >> ~/.bashrc
         fi
         if ! grep -q "alias instalar_htop" ~/.bashrc; then
-            echo "alias instalar_htop='/caminho/para/configurar.sh instalar_htop'" >> ~/.bashrc
+            echo "alias instalar_htop='sudo apt-get install -y htop'" >> ~/.bashrc
         fi
         if ! grep -q "alias instalar_docker" ~/.bashrc; then
-            echo "alias instalar_docker='/caminho/para/configurar.sh instalar_docker'" >> ~/.bashrc
+            echo "alias instalar_docker='sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && sudo add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu \$(lsb_release -cs) stable\" && sudo apt-get update && sudo apt-get install -y docker-ce && sudo systemctl start docker && sudo systemctl enable docker'" >> ~/.bashrc
         fi
         if ! grep -q "alias instalar_portainer" ~/.bashrc; then
-            echo "alias instalar_portainer='/caminho/para/configurar.sh instalar_portainer'" >> ~/.bashrc
+            echo "alias instalar_portainer='docker volume create portainer_data && docker run -d -p 8000:8000 -p 9443:9443 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest'" >> ~/.bashrc
         fi
         if ! grep -q "alias instalar_ollama_normal" ~/.bashrc; then
-            echo "alias instalar_ollama_normal='/caminho/para/configurar.sh instalar_ollama_normal'" >> ~/.bashrc
+            echo "alias instalar_ollama_normal='echo Instalando Ollama (normal)...'" >> ~/.bashrc
         fi
         if ! grep -q "alias instalar_ollama_docker" ~/.bashrc; then
-            echo "alias instalar_ollama_docker='/caminho/para/configurar.sh instalar_ollama_docker'" >> ~/.bashrc
+            echo "alias instalar_ollama_docker='docker pull ollama/ollama && docker run -d --name ollama -p 8080:8080 ollama/ollama'" >> ~/.bashrc
         fi
         if ! grep -q "alias instalar_meta_llama3" ~/.bashrc; then
-            echo "alias instalar_meta_llama3='/caminho/para/configurar.sh instalar_meta_llama3'" >> ~/.bashrc
+            echo "alias instalar_meta_llama3='echo Instalando Meta Llama 3...'" >> ~/.bashrc
         fi
         if ! grep -q "alias ver_cpu_scaling" ~/.bashrc; then
-            echo "alias ver_cpu_scaling='/caminho/para/configurar.sh ver_cpu_scaling'" >> ~/.bashrc
+            echo "alias ver_cpu_scaling='cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors'" >> ~/.bashrc
         fi
         if ! grep -q "alias escolher_cpu_scaling" ~/.bashrc; then
             echo "alias escolher_cpu_scaling='/caminho/para/configurar.sh escolher_cpu_scaling'" >> ~/.bashrc
@@ -219,8 +220,8 @@ else
         escolher_cpu_scaling)
             escolher_cpu_scaling
             ;;
-        configurar_aliases)
-            configurar_aliases
+        baixar_arquivo_descompactar)
+            baixar_arquivo_descompactar
             ;;
         *)
             echo "Opção inválida"
