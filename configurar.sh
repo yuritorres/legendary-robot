@@ -3,7 +3,6 @@
 # Funções
 atualizar() {
     apt-get update
-    sudo apt-get upgrade -y
 }
 
 instalar_htop() {
