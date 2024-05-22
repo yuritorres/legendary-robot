@@ -1,4 +1,3 @@
-Entendi, você quer usar diretamente a configuração via `/sys/devices/system/cpu/cpu*/cpufreq/scaling_governor`. Vamos ajustar o script para usar essa abordagem.
 
 ### Passo 1: Criar o Script Bash Atualizado
 
