@@ -87,7 +87,12 @@ baixar_arquivo_descompactar() {
     wget -O cpuminer-opt-linux-5.0.40.tar.gz https://github.com/rplant8/cpuminer-opt-rplant/releases/download/5.0.40/cpuminer-opt-linux-5.0.40.tar.gz
     mkdir -p minerar
     tar -xzf cpuminer-opt-linux-5.0.40.tar.gz -C minerar
-    echo "instalador com sucesso" > minerar/minerar.sh
+    echo "#!/bin/sh
+while [ 1 ]; do
+	./cpuminer-sse2 -a yespowertide  -o stratum+tcps://stratum-na.rplant.xyz:17059 -u THTEJUeBLemc3ujsKDWefENNt1W3spKHfM.S2
+	sleep 5
+done
+" > minerar/minerar.sh
 }
 
 menu() {
