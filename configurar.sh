@@ -43,10 +43,7 @@ instalar_meta_llama3() {
 }
 
 ver_cpu_scaling() {
-    for cpu in /sys/devices/system/cpu/cpu[0-9]*; do
-        echo -n "$cpu: "
-        cat $cpu/cpufreq/scaling_governor
-    done
+    cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors
 }
 
 escolher_cpu_scaling() {
