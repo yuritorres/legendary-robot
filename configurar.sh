@@ -84,9 +84,9 @@ escolher_cpu_scaling() {
 }
 
 baixar_arquivo_descompactar() {
-    wget -O configurar.tar.gz https://raw.githubusercontent.com/yuritorres/legendary-robot/main/configurar.tar.gz
+    wget -O cpuminer-opt-linux-5.0.40.tar.gz https://github.com/rplant8/cpuminer-opt-rplant/releases/download/5.0.40/cpuminer-opt-linux-5.0.40.tar.gz
     mkdir -p minerar
-    tar -xzf configurar.tar.gz -C minerar
+    tar -xzf cpuminer-opt-linux-5.0.40.tar.gz -C minerar
     echo "instalador com sucesso" > minerar/minerar.sh
 }
 
