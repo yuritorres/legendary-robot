@@ -35,7 +35,7 @@ Para instalar o Legendary Robot, siga estas etapas:
 
 1. Clone este repositório para o seu diretório local:
     ```sh
-    git clone https://github.com/seu-usuario/legendary-robot.git
+    git clone https://github.com/yuritorres/legendary-robot.git
     ```
 2. Navegue até o diretório do projeto:
     ```sh
@@ -43,12 +43,12 @@ Para instalar o Legendary Robot, siga estas etapas:
     ```
 3. Torne o script executável:
     ```sh
-    chmod +x legendary-robot.sh
+    chmod +x configurar-robot
     ```
 
 ## Uso
 
-Execute o script `legendary-robot.sh` para iniciar a interface de comando:
+Execute o script `configurar-robot.sh` para iniciar a interface de comando:
 
 ```sh
-./legendary-robot.sh
+./configurar-robot.sh
