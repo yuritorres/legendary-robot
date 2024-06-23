@@ -19,6 +19,26 @@ instalar_docker() {
     sudo systemctl enable docker
 }
 
+instalar_docker_debian() {
+    # Adicionar a chave GPG oficial do Docker:
+    sudo apt-get update
+    sudo apt-get install -y ca-certificates curl
+    sudo install -m 0755 -d /etc/apt/keyrings
+    sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+    sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+    # Adicionar o repositório ao sources.list do Apt:
+    echo \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+      $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    sudo apt-get update
+
+    sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    sudo systemctl start docker
+    sudo systemctl enable docker
+}
+
 instalar_portainer() {
     docker volume create portainer_data
     docker run -d -p 8000:8000 -p 9443:9443 --name=portainer --restart=always \
@@ -99,14 +119,15 @@ menu() {
     echo "1. Atualizar e fazer upgrade do sistema"
     echo "2. Instalar Htop"
     echo "3. Instalar Docker"
-    echo "4. Instalar Portainer"
-    echo "5. Instalar Ollama (normal)"
-    echo "6. Instalar Ollama (via Docker)"
-    echo "7. Instalar Meta Llama 3"
-    echo "8. Ver CPU Scaling Disponíveis"
-    echo "9. Escolher CPU Scaling"
-    echo "10. Baixar Arquivo, Descompactar e Criar Script"
-    echo "11. Sair"
+    echo "4. Instalar Docker (Debian)"
+    echo "5. Instalar Portainer"
+    echo "6. Instalar Ollama (normal)"
+    echo "7. Instalar Ollama (via Docker)"
+    echo "8. Instalar Meta Llama 3"
+    echo "9. Ver CPU Scaling Disponíveis"
+    echo "10. Escolher CPU Scaling"
+    echo "11. Baixar Arquivo, Descompactar e Criar Script"
+    echo "12. Sair"
     read -p "Digite o número da opção desejada: " opcao
 
     case $opcao in
@@ -120,27 +141,30 @@ menu() {
             instalar_docker
             ;;
         4)
-            instalar_portainer
+            instalar_docker_debian
             ;;
         5)
-            instalar_ollama_normal
+            instalar_portainer
             ;;
         6)
-            instalar_ollama_docker
+            instalar_ollama_normal
             ;;
         7)
-            instalar_meta_llama3
+            instalar_ollama_docker
             ;;
         8)
-            ver_cpu_scaling
+            instalar_meta_llama3
             ;;
         9)
-            escolher_cpu_scaling
+            ver_cpu_scaling
             ;;
         10)
-            baixar_arquivo_descompactar
+            escolher_cpu_scaling
             ;;
         11)
+            baixar_arquivo_descompactar
+            ;;
+        12)
             exit 0
             ;;
         *)
@@ -168,6 +192,9 @@ else
             ;;
         instalar_docker)
             instalar_docker
+            ;;
+        instalar_docker_debian)
+            instalar_docker_debian
             ;;
         instalar_portainer)
             instalar_portainer
